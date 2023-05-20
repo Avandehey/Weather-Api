@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/secret.js" defer></script>
+    <script src="./js/script.js" defer></script>
+    <title>Weather Api</title>
+</head>
+<body>
+    <h1 class ="city-name">Los Angeles</h1>
+    <input type="text" class="city-input" id="city-input" placeholder="Enter City Name">
+    <button class="city-btn" id="city-btn">What's The Weather?</button>
+    <div class="main">
+        <div class="main-info main-temp"></div>
+        <div class="main-info main-forcast"></div>
+    </div>
+    <footer class="box">
+        <div class="stat-box">
+            <div class="stat text text-top">Max Temp</div>
+                <div class="stat num max-data"></div>
+        </div>
+        <div class="stat-box">
+            <div class="stat text text-top">Humidity</div>
+                <div class="stat num humidity-data "></div>
+        </div>
+        <div class="stat-box">
+            <div class="stat text">Min Temp</div>
+            <div class="stat num min-data bottom"></div>
+        </div>
+        <div class="stat-box">
+            <div class="stat text">Wind Speed</div>
+            <div class="stat num wind-data bottom"></div>
+        </div>
+    </footer>
+</body>
+</html>
