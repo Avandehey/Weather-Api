@@ -23,13 +23,16 @@ function getData(cityName, key) {
             let min = parseInt(data.main.temp_min);
             let forcast = data.weather[0].description;
             let humidity = parseInt(data.main.humidity);
+
+            var fahrenheit = [temp , max , min]
+            window.globalFahrenheit = fahrenheit
             
-            // console.log("temp:" + " " + temp + "\u00B0" + "F" );
-            // console.log("wind:" + " " + wind + " " + "mph");
-            // console.log("high:" + " " + max + "\u00B0" + "F" );
-            // console.log("low:" + " " + min + "\u00B0" + "F" );
-            // console.log("forcast:" + " " + forcast);
-            // console.log("humidity:" + " " + humidity + "%");
+            console.log("temp:" + " " + temp + "\u00B0" + "F" );
+            console.log("wind:" + " " + wind + " " + "mph");
+            console.log("high:" + " " + max + "\u00B0" + "F" );
+            console.log("low:" + " " + min + "\u00B0" + "F" );
+            console.log("forcast:" + " " + forcast);
+            console.log("humidity:" + " " + humidity + "%");
            
             updateData({temp , wind , max , min , forcast , humidity});
 
@@ -60,11 +63,12 @@ const cityName = document.getElementById("city-input");
 
 // event listener that takes in city name and passes it through api and returns data
 cityBtn.addEventListener("click", function(event) {
-    event.preventDefault();
     const cityName = document.getElementById("city-input").value;
+    event.preventDefault();
     if (cityName === "") {
         return;
     }
+    document.getElementById("city-input").value = ""
     const titleCityName = toTitleCase(cityName);
     document.querySelector(".city-name").textContent = titleCityName;
     getData(cityName, key);
@@ -83,3 +87,32 @@ function toTitleCase(str) {
       return char.toUpperCase();
     });
   };
+
+  const altBtn = document.querySelector(".alt-btn");
+  var globalFahrenheit = []
+
+  altBtn.addEventListener("click", function(event){
+    event.preventDefault();
+    if(altBtn.textContent === "Convert to Celsius"){
+        fahrenheitToCelsius(globalFahrenheit)
+        document.querySelector('.main-temp').textContent = `${celsiusArray[0]}\u00B0C`;
+        document.querySelector('.max-data').textContent = `${celsiusArray[1]}\u00B0C`;
+        document.querySelector('.min-data').textContent = `${celsiusArray[2]}\u00B0C`;
+        document.querySelector('.alt-btn').textContent = "Convert to Fahrenheit"
+    } else {
+        document.querySelector('.main-temp').textContent = `${globalFahrenheit[0]}\u00B0F`;
+        document.querySelector('.max-data').textContent = `${globalFahrenheit[1]}\u00B0F`;
+        document.querySelector('.min-data').textContent = `${globalFahrenheit[2]}\u00B0F`;
+        document.querySelector('.alt-btn').textContent = "Convert to Celsius"
+    }
+  })
+
+  const celsiusArray = [];
+
+  function fahrenheitToCelsius(fahrenheit) {
+    for (var i = 0; i < fahrenheit.length; i++) {
+      var celsius = Math.round((fahrenheit[i] - 32) * 5 / 9);
+      celsiusArray.push(celsius);
+    }
+    return celsiusArray;
+  }
